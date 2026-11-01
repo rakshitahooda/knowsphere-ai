@@ -88,7 +88,7 @@ knowsphere-ai/
 │   │   ├── ingestion/             # parse → chunk → embed → index (documents)
 │   │   ├── db/                    # SQLite repositories (documents, conversations)
 │   │   └── prompts/               # versioned prompt templates (txt files)
-│   ├── tests/                     # pytest suite (146 tests, offline)
+│   ├── tests/                     # pytest suite (147 tests: 146 active + 1 opt-in smoke)
 │   ├── requirements.txt
 │   └── requirements-ml.txt        # chromadb, pymupdf, python-docx, sentence-transformers
 ├── frontend/
@@ -258,16 +258,37 @@ Switch back to fully-local with `LLM_PROVIDER=ollama` (no key needed).
 
 ## Screenshots
 
-*(GitHub README placeholders — capture and link real screenshots):*
+All captures below are real screenshots of the running application
+(Windows 11, Chromium via the DevTools Protocol against the production build
+served by FastAPI; sample document: `space-handbook.txt`, local model:
+`llama3.2:1b`). See [`docs/screenshots/capture.md`](docs/screenshots/capture.md)
+for exactly how they were produced.
 
-> ![Home screen with uploaded documents](docs/screenshots/home.png)
-> *Document library with drag & drop upload, statuses and connection badge.*
+![Main dashboard](docs/screenshots/home.png)
+*Main dashboard — document library with the ingested handbook (`ready`),
+drag & drop upload zone, conversation sidebar and the live `Connected`
+health badge.*
 
-> ![Streaming chat with citations](docs/screenshots/chat-citations.png)
-> *Streaming answer with expandable source cards (document · page · chunk ref).*
+![Document upload](docs/screenshots/upload.png)
+*Upload dropzone (PDF · TXT · MD · DOCX, ≤ 20 MB) with library status and
+delete control. The dropzone highlights on hover; uploads show per-file
+progress, validation errors and duplicate detection.*
 
-> ![Conversation management](docs/screenshots/conversations.png)
-> *Conversation sidebar: rename inline, delete with confirmation.*
+![Chat with citations](docs/screenshots/chat-citations.png)
+*Grounded answer streamed from the uploaded handbook. The answer cites
+`[doc "space-handbook.txt" | chunk 0 | ref #1]` and the source card below is
+expanded to show the retrieved snippet the answer was built from.*
+
+![Conversation sidebar](docs/screenshots/conversations.png)
+*Conversation sidebar — hovering a conversation reveals the inline rename
+(pencil) and delete (trash) controls; delete opens a confirmation dialog
+before anything is removed.*
+
+![Production mode](docs/screenshots/production-mode.png)
+*Production mode — FastAPI serving the built React app from `frontend/dist`
+(`SERVE_FRONTEND=1`) on a single port: `/api/*` and the SPA share one origin,
+and the conversation above was re-opened after a full page reload to show
+SQLite-persisted history.*
 
 ---
 
