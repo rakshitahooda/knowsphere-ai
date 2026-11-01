@@ -1,0 +1,26 @@
+# --- Python / backend ---
+backend/.venv/
+backend/venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# --- Node / frontend ---
+frontend/node_modules/
+frontend/dist/
+*.local
+
+# --- Secrets (never commit) ---
+.env
+.env.*
+!.env.example
+
+# --- Runtime data (vector index, uploads, SQLite) ---
+data/
+!data/.gitkeep
+
+# --- OS / editor noise ---
+.DS_Store
+Thumbs.db

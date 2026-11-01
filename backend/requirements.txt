@@ -1,0 +1,12 @@
+# KnowSphere AI — backend runtime dependencies (Phase M1)
+# Deliberately lightweight: heavy ML dependencies (ChromaDB,
+# sentence-transformers) arrive with M2/M3.
+
+fastapi>=0.115
+uvicorn[standard]>=0.32
+pydantic-settings>=2.6
+python-multipart>=0.0.17    # multipart/form-data parsing for document uploads
+
+# --- test dependencies ---
+pytest>=8.3
+httpx>=0.27          # required by FastAPI's TestClient

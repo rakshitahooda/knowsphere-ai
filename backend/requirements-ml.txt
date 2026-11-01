@@ -1,0 +1,16 @@
+# KnowSphere AI — ML / ingestion extras (required from M3 onwards).
+# Base requirements.txt stays lightweight; everything document-IQ lives here.
+#
+#   .venv\Scripts\python.exe -m pip install -r requirements-ml.txt
+
+# --- embeddings (local, CPU) ---
+sentence-transformers>=3.3
+
+# --- vector store (persistent local storage) ---
+chromadb>=0.6
+
+# --- document parsers ---
+pymupdf>=1.24          # PDF, incl. per-page extraction
+python-docx>=1.1       # DOCX
+
+# TXT/MD need no extra library (stdlib I/O).
