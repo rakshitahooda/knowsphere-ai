@@ -1,9 +1,11 @@
 # Release preparation — v1.0.0
 
-Everything in this file is prepared but **not yet executed**: the first commit,
-tag `v1.0.0`, GitHub repo publication and the GitHub Release itself still need
-explicit approval & manual action. Suggested order: commit first, publish the
-repo, then create the tag & release.
+Commits on `main`: `b340e29` (M1–M7 code + README + screenshot baseline)
+and `bb8745a` (v1.0.0 release notes + all five project screenshots).
+Remaining — still requiring explicit approval & manual action: creating
+the GitHub repository, adding the remote and pushing, tag `v1.0.0`, and
+the GitHub Release itself. Suggested order: publish the repo first, then
+create the tag & release.
 
 ---
 
@@ -134,14 +136,17 @@ KnowSphere AI v1.0.0 — local-first RAG chat with citations
 
 ## 6. Manual release checklist (for the user, in order)
 
-1. [ ] Review staged work and create the first commit (message in §5).
-2. [ ] Create the GitHub repository (Name: `knowsphere-ai`; description from
+1. [x] First commit created (`b340e29`, code + README + screenshots baseline).
+2. [x] Release-asset commit created (`bb8745a`, "docs: add v1.0 release notes
+       and project screenshots" — release notes + all five screenshots +
+       capture.md).
+3. [ ] Create the GitHub repository (Name: `knowsphere-ai`; description from
        §1; topics from §2; **Private** unless deliberately publishing).
-3. [ ] Add the remote and push `main`:
+4. [ ] Add the remote and push `main`:
        `git remote add origin <url> && git push -u origin main`.
-4. [ ] Tag after everything is on GitHub:
+5. [ ] Tag after everything is on GitHub:
        `git tag -a v1.0.0 -m "KnowSphere AI v1.0.0" && git push origin v1.0.0`.
-5. [ ] Create the GitHub Release from tag `v1.0.0`, title
+6. [ ] Create the GitHub Release from tag `v1.0.0`, title
        **KnowSphere AI v1.0.0**, notes from §4 (check "Set as latest").
-6. [ ] Verify no secrets after push (`git log -p | grep -i sk-or` style spot
+7. [ ] Verify no secrets after push (`git log -p | grep -i sk-or` style spot
        check) — expected: only offline-test dummy keys.
