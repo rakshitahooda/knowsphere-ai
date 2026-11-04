@@ -4,8 +4,8 @@ the searchable store (and cleanly out of it).
 Safety properties (requirements 8/9):
 - content hash (sha256) dedupe: identical bytes are rejected even if renamed
 - safe stored filenames: uuid prefix + sanitized basename; directory
-  components (including traversal like ".." and "\") are stripped by
-  ``Path(...).name`` AND the character allowlist, so a stored file can never
+  components (including Windows and POSIX traversal) are stripped by
+  separator normalization, ``Path(...).name`` and the character allowlist, so a stored file can never
   land outside ``uploads_dir``
 - each parse/chunk/embed/index step is wrapped: on failure, partially
   written state (uploaded file, vector entries) is rolled back
@@ -70,11 +70,11 @@ def _unlink_with_retries(path: Path) -> None:
 def _sanitize_basename(original_name: str) -> str:
     """Reduce a user-supplied filename to one safe component.
 
-    ``Path(...).name`` drops directory parts; the regex allowlist keeps only
-    ``[A-Za-z0-9._-]`` (backslashes, colons, '../' runs become underscores).
+    Normalize both separator styles before dropping directory parts, even on
+    POSIX hosts. The regex allowlist keeps only ``[A-Za-z0-9._-]``.
     A uuid hex prefix makes the result collision-proof on disk.
     """
-    base = Path(original_name).name
+    base = Path(original_name.replace("\\", "/")).name
     sanitized = re.sub(r"[^A-Za-z0-9._-]+", "_", base).lstrip(".") or "upload"
     return sanitized[:64]
 

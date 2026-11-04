@@ -211,6 +211,9 @@ def test_traversal_tricks_are_neutralized(workspace: dict[str, Path]) -> None:
 def test_sanitize_basename_rules() -> None:
     assert _sanitize_basename("report FINAL (v2).txt") == "report_FINAL_v2_.txt"
     assert _sanitize_basename("..\\.hidden.md") == "hidden.md"
+    assert _sanitize_basename(r"C:\uploads\report.txt") == "report.txt"
+    assert _sanitize_basename("../../private/report.txt") == "report.txt"
+    assert _sanitize_basename(r"mixed/path\.hidden.md") == "hidden.md"
     assert _sanitize_basename("no-extension") == "no-extension"
     long = _sanitize_basename("x" * 200 + ".txt")
     assert len(long) <= 64
